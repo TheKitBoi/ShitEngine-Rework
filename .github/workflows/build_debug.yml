@@ -63,8 +63,6 @@ jobs:
         # uses: djnicholson/release-action@e9a535b3eced09c460e07a84118fb74ae9b53236
         uses: djnicholson/release-action@v2.10
         with:
-          name: windowsBuild
-          path: bin.tar.gz
           # GitHub auth token
           token: ${{ secrets.GITHUB_TOKEN }}
           # Name of Release to add file to
