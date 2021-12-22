@@ -20,36 +20,35 @@ jobs:
         with:
           haxe-version: 4.1.5
       # Runs a set of commands using the runners shell
-      - name: script run line haha
+      - name: Install Haxelib
         run: |
-          cinst haxe --version 4.1.5 -y
-          RefreshEnv
-          mkdir "%HAXELIB_ROOT%"
-          haxelib setup "%HAXELIB_ROOT%"
-          haxelib install lime 7.9.0
-          RefreshEnv
+          haxelib setup C:/haxelib
+          haxelib install hxcpp > nul
+          haxelib install lime
           haxelib install openfl
-          haxelib install flixel
+          haxelib --never install flixel
           haxelib run lime setup flixel
           haxelib run lime setup
           haxelib install flixel-tools
-          haxelib install flixel-addons
           haxelib install flixel-ui
-          haxelib install hscript
-          haxelib install flixel-addons
-          haxelib install newgrounds
-          haxelib git faxe https://github.com/uhrobots/faxe
-          haxelib git polymod https://github.com/MasterEric/polymod.git
-          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib git extension-webm https://github.com/KadeDev/extension-webm
-          haxelib run lime rebuild extension-webm windows
-          haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit.git
-          haxelib git hxvm-luajit https://github.com/nebulazorua/hxvm-luajit
           haxelib git flixel-addons https://github.com/HaxeFlixel/flixel-addons
-          haxelib install actuate 
+          haxelib install newgrounds
+          haxelib install polymod
+          haxelib git polymod https://github.com/larsiusprime/polymod funkinfixes
+          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+          haxelib install hxcpp-debug-server
+          haxelib git djFlixel https://github.com/john32b/djFlixel
+          haxelib install actuate
+          haxelib git extension-webm https://github.com/GrowtopiaFli/extension-webm
+          haxelib git systools https://github.com/haya3218/systools
           haxelib list
-          haxelib run lime build windows
-          
+        shell: cmd
+      - name: Rebuild extension-webm
+        run: haxelib run lime rebuild extension-webm windows
+      - name: Rebuild systools
+        run: haxelib run lime rebuild systools windows
+      - name: Compile
+        run: haxelib run lime build windows -debug
       - uses: actions/upload-artifact@v2
         with:
           name: Windows Build
